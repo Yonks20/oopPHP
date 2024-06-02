@@ -7,21 +7,36 @@
 // Sebuah class yang namanya produk yang akan kita kelola nantinya
 
 class Produk{
-    public$judul, 
+    public $judul, 
           $penulis, 
           $penerbit,
-          $harga;
+          $harga,
+          $jmlHalaman,
+          $waktuMain,
+          $tipe;
 
-    public function __construct($judul="Judul", $penulis="Penulis", $penerbit="Penerbit", $harga="Harga"){
+    public function __construct($tipe, $judul="Judul", $penulis="Penulis", $penerbit="Penerbit", $harga="Harga", $jmlHalaman=0, $waktuMain=0){
         $this->judul = $judul;
         $this->penulis = $penulis;
         $this->penerbit = $penerbit;
         $this->harga = $harga;
+        $this->jmlHalaman = $jmlHalaman;
+        $this->waktuMain = $waktuMain;
+        $this->tipe = $tipe;
     }
     public function getLabel(){
         return "$this->penulis, $this->penerbit";
     }
-
+    public function getInfoLengkap(){
+        $str = "{$this->tipe} : {$this->judul} | {$this->getLabel()} (Rp. {$this->harga})";
+    
+        if($this->tipe == "Komik"){
+            $str .= " -{$this->jmlHalaman} Halaman.";
+        }else if($this->tipe == "Game"){
+            $str .= " ~ {$this->waktuMain} Jam.";
+        }
+        return $str;
+    }
 }
 
 class CetakInfoProduk {
@@ -32,20 +47,10 @@ class CetakInfoProduk {
     }
 }
 
-$produk1 = new Produk("Naruto", "Hinata", "Sazuke", 100);
-$produk2 = new Produk("Valorant", "Riot", "Riot Games", 10000);
+$produk1 = new Produk("Komik","Naruto", "Hinata", "Sazuke", 30000, 100, 0);
+$produk2 = new Produk("Game", "Valorant", "Riot", "Riot Games", 10000, 0, 50);
 
-// echo "Komik : " . $produk1->getLabel();
-// echo "\n";
-// echo "Game : " . $produk2->getLabel();
-// echo "\n";
-// $infoProduk1 = new CetakInfoProduk;
-// echo $infoProduk1->cetak($produk1);
-
-// komik : Naruto | Hinata, Sazuke (Rp. 100) = 100 Halaman.
-// komik : Valorant | Riot, Riot Games (Rp. 10000) = 10 Jam. Halaman.
-
-
-
-
+echo $produk1->getInfoLengkap();
+echo "<br>";
+echo $produk2->getInfoLengkap();
 ?>

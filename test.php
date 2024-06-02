@@ -5,7 +5,6 @@ class CobaClass {
 };
 
 
-$a = new Coba(),
-$b = new Cubi();
+$a = new Coba();
 
-?>
+?> 
